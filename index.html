@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SmartKart - Compra Inteligente de Despensa</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ["Poppins", "sans-serif"],
+          },
+          colors: {
+            primary: "#2563EB",
+            accent: "#22C55E",
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+    }
+
+    /* Estilos para las opciones seleccionables */
+    .option-box {
+      cursor: pointer;
+      border: 2px solid #d1d5db; /* gray-300 */
+      border-radius: 0.375rem; /* rounded-md */
+      padding: 0.5rem 1rem;
+      user-select: none;
+      transition: all 0.3s ease;
+      text-align: center;
+      flex-grow: 1;
+    }
+
+    .option-box:hover {
+      border-color: #2563eb; /* primary */
+      background-color: #bfdbfe; /* blue-200 */
+    }
+
+    .option-box.selected {
+      border-color: #22c55e; /* accent */
+      background-color: #dcfce7; /* green-100 */
+      color: #166534; /* green-800 */
+      font-weight: 600;
+    }
+  </style>
+  <script>
+    function openDialog() {
+      document.getElementById("dialog").showModal();
+    }
+    function handleSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById("popup-name").value.trim();
+      const email = document.getElementById("popup-email").value.trim();
+      const postalCode = document.getElementById("popup-postalcode").value.trim();
+      const selectedSaveOption = document.querySelector(".option-box.selected");
+      if (!name || !email) {
+        alert("Por favor, completa ambos campos.");
+        return;
+      }
+      if (!postalCode) {
+        alert("Por favor, ingresa tu código postal.");
+        return;
+      }
+      if (!selectedSaveOption) {
+        alert("Por favor, selecciona una opción para ahorrar con SmartKart.");
+        return;
+      }
+      // Aquí podrías enviar la info o guardarla como desees
+      alert(
+        `¡Gracias! Te contactaremos pronto.\n\nCódigo Postal: ${postalCode}\nDeseas ahorrar: ${selectedSaveOption.textContent}`
+      );
+      document.getElementById("dialog").close();
+    }
+
+    // Función para manejar selección de opciones
+    function selectOption(clickedBox) {
+      const options = document.querySelectorAll(".option-box");
+      options.forEach((box) => {
+        box.classList.remove("selected");
+      });
+      clickedBox.classList.add("selected");
+    }
+  </script>
+</head>
+
+<body class="bg-white text-gray-800">
+  <!-- Dialog -->
+  <dialog id="dialog" class="rounded-xl shadow-lg w-full max-w-md p-6 text-left">
+    <form method="dialog" class="space-y-4" onsubmit="handleSubmit(event)">
+      <h2 class="text-xl font-bold text-gray-800">¿Quieres saber más sobre SmartKart?</h2>
+      <input
+        type="text"
+        id="popup-name"
+        placeholder="Tu nombre"
+        class="w-full px-4 py-2 border border-gray-300 rounded-md"
+        required
+      />
+      <input
+        type="email"
+        id="popup-email"
+        placeholder="Tu correo electrónico"
+        class="w-full px-4 py-2 border border-gray-300 rounded-md"
+        required
+      />
+      <!-- Nueva pregunta: Código Postal -->
+      <input
+        type="text"
+        id="popup-postalcode"
+        placeholder="Código Postal"
+        class="w-full px-4 py-2 border border-gray-300 rounded-md"
+        pattern="\d*"
+        maxlength="10"
+        title="Ingresa un código postal válido"
+        required
+      />
+
+      <!-- Nueva pregunta: ¿Qué te gustaría ahorrar más? -->
+      <div>
+        <p class="mb-2 font-semibold text-gray-700">
+          ¿Qué te gustaría ahorrar más con SmartKart?
+        </p>
+        <div class="flex space-x-4">
+          <div
+            tabindex="0"
+            role="button"
+            class="option-box"
+            onclick="selectOption(this)"
+            onkeypress="if(event.key==='Enter' || event.key===' ') selectOption(this)"
+          >
+            Tiempo
+          </div>
+          <div
+            tabindex="0"
+            role="button"
+            class="option-box"
+            onclick="selectOption(this)"
+            onkeypress="if(event.key==='Enter' || event.key===' ') selectOption(this)"
+          >
+            Dinero
+          </div>
+          <div
+            tabindex="0"
+            role="button"
+            class="option-box"
+            onclick="selectOption(this)"
+            onkeypress="if(event.key==='Enter' || event.key===' ') selectOption(this)"
+          >
+            Ambos
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-end space-x-2 pt-2">
+        <button type="submit" class="bg-accent hover:bg-green-700 text-white px-4 py-2 rounded">Enviar</button>
+        <button type="button" onclick="document.getElementById('dialog').close()" class="text-gray-500 hover:text-gray-700 px-4 py-2">
+          Cerrar
+        </button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Hero Section -->
+  <section
+    class="bg-cover bg-center h-screen flex items-center justify-center text-center text-white relative"
+    style="background-image: url('https://img.freepik.com/free-photo/women-happily-shopping-buying-consumer-products-customer-day_23-2151623444.jpg');"
+  >
+    <div
+      class="absolute top-4 left-4 bg-black/60 rounded-md px-3 py-1 cursor-pointer"
+      onclick="openDialog()"
+    >
+      <div class="flex items-center space-x-2 text-white font-extrabold text-lg">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-1.2 6.4a1 1 0 001 .6h12a1 1 0 001-.8L21 13M10 21a1 1 0 11-2 0 1 1 0 012 0zm10 0a1 1 0 11-2 0 1 1 0 012 0z"
+          />
+        </svg>
+        <span class="text-accent">SmartKart</span>
+      </div>
+    </div>
+    <div
+      class="bg-gradient-to-br from-black/70 to-primary/90 p-8 rounded-xl max-w-3xl z-10 shadow-2xl"
+    >
+      <h1 class="text-5xl md:text-6xl font-extrabold mb-4">Haz tu compra más inteligente</h1>
+      <p class="text-xl md:text-2xl mb-6">
+        Compara precios en tiendas cercanas, ahorra en cada producto y mejora tu
+        despensa con SmartKart.
+      </p>
+      <button
+        onclick="openDialog()"
+        class="bg-accent hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg transition"
+      >
+        Descubre cómo ahorrar fácil
+      </button>
+    </div>
+  </section>
+
+   <!-- Beneficios -->
+<section class="py-20 px-6 bg-gradient-to-b from-white to-gray-100">
+  <div class="max-w-6xl mx-auto text-center">
+    <h2 class="text-4xl font-extrabold mb-6 text-primary">¿Por qué elegir SmartKart?</h2>
+    <p class="text-lg text-gray-600 mb-12">SmartKart es la herramienta que necesitan los compradores inteligentes, conscientes y organizados para optimizar su compra de despensa.</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+      <div class="bg-white p-8 rounded-xl shadow-md relative flex flex-col">
+        <div class="absolute top-4 left-4 bg-black/60 rounded-md px-2 py-1 cursor-pointer" onclick="openDialog()">
+          <div class="flex items-center space-x-1 text-white font-bold text-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-1.2 6.4a1 1 0 001 .6h12a1 1 0 001-.8L21 13M10 21a1 1 0 11-2 0 1 1 0 012 0zm10 0a1 1 0 11-2 0 1 1 0 012 0z" />
+            </svg>
+            <span>SmartKart</span>
+          </div>
+        </div>
+        <img src="https://img.freepik.com/free-photo/medium-shot-woman-checking-product_23-2149148457.jpg" alt="Compara precios" class="w-full h-56 object-cover rounded-lg mb-6" />
+        <h3 class="text-2xl font-semibold text-primary mb-3">Compara precios al instante</h3>
+        <p class="flex-grow text-gray-700">Escanea productos y descubre qué tienda tiene el mejor precio cerca de ti.</p>
+      </div>
+      
+      <div class="bg-white p-8 rounded-xl shadow-md relative flex flex-col">
+        <div class="absolute top-4 left-4 bg-black/60 rounded-md px-2 py-1 cursor-pointer" onclick="openDialog()">
+          <div class="flex items-center space-x-1 text-white font-bold text-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-1.2 6.4a1 1 0 001 .6h12a1 1 0 001-.8L21 13M10 21a1 1 0 11-2 0 1 1 0 012 0zm10 0a1 1 0 11-2 0 1 1 0 012 0z" />
+            </svg>
+            <span>SmartKart</span>
+          </div>
+        </div>
+        <img src="https://img.freepik.com/free-photo/pushpins-with-thread-route-map-high-view_23-2148510500.jpg?uid=R203498738&ga=GA1.1.83679627.1749367982&w=740" alt="Planea la mejor ruta" class="w-full h-56 object-cover rounded-lg mb-6" />
+        <h3 class="text-2xl font-semibold text-primary mb-3">Planea la mejor ruta</h3>
+        <p class="flex-grow text-gray-700">Visualiza la ruta óptima para visitar varias tiendas y ahorrar tiempo, esfuerzo y gasolina en tus compras.</p>
+      </div>
+
+      <div class="bg-white p-8 rounded-xl shadow-md relative flex flex-col">
+        <div class="absolute top-4 left-4 bg-black/60 rounded-md px-2 py-1 cursor-pointer" onclick="openDialog()">
+          <div class="flex items-center space-x-1 text-white font-bold text-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-1.2 6.4a1 1 0 001 .6h12a1 1 0 001-.8L21 13M10 21a1 1 0 11-2 0 1 1 0 012 0zm10 0a1 1 0 11-2 0 1 1 0 012 0z" />
+            </svg>
+            <span>SmartKart</span>
+          </div>
+        </div>
+        <img src="https://img.freepik.com/free-photo/courier-delivering-groceries-home_23-2149737974.jpg" alt="Organiza tu despensa" class="w-full h-56 object-cover rounded-lg mb-6" />
+        <h3 class="text-2xl font-semibold text-primary mb-3">Organiza tu despensa</h3>
+        <p class="flex-grow text-gray-700">Planifica tu compra y recibe recomendaciones optimizadas por precio y productos similares.</p>
+      </div>
+
+      <div class="bg-white p-8 rounded-xl shadow-md relative flex flex-col">
+        <div class="absolute top-4 left-4 bg-black/60 rounded-md px-2 py-1 cursor-pointer" onclick="openDialog()">
+          <div class="flex items-center space-x-1 text-white font-bold text-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-1.2 6.4a1 1 0 001 .6h12a1 1 0 001-.8L21 13M10 21a1 1 0 11-2 0 1 1 0 012 0zm10 0a1 1 0 11-2 0 1 1 0 012 0z" />
+            </svg>
+            <span>SmartKart</span>
+          </div>
+        </div>
+        <img src="https://img.freepik.com/free-photo/side-view-woman-getting-groceries_23-2149722259.jpg" alt="Entrega o recogida fácil" class="w-full h-56 object-cover rounded-lg mb-6" />
+        <h3 class="text-2xl font-semibold text-primary mb-3">Entrega o recogida fácil</h3>
+        <p class="flex-grow text-gray-700">Recoge tu compra o recíbela en casa, con rutas y tiempos optimizados.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <!-- Testimonios -->
+  <section class="py-20 bg-primary text-white">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="text-4xl font-extrabold mb-12 text-center">Lo que dicen nuestros usuarios</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div class="bg-white bg-opacity-20 rounded-xl p-6 shadow-lg flex flex-col items-center">
+          <img
+            src="https://randomuser.me/api/portraits/women/68.jpg"
+            alt="Testimonio de Ana"
+            class="w-24 h-24 rounded-full mb-4 object-cover border-4 border-accent"
+          />
+          <p class="italic mb-4 text-center">
+            "SmartKart me ha ayudado a ahorrar tiempo y dinero cada semana. Ahora hago compras mucho más inteligentes."
+          </p>
+          <h3 class="font-bold text-lg">Ana P.</h3>
+        </div>
+
+        <div class="bg-white bg-opacity-20 rounded-xl p-6 shadow-lg flex flex-col items-center">
+          <img
+            src="https://randomuser.me/api/portraits/men/32.jpg"
+            alt="Testimonio de Luis"
+            class="w-24 h-24 rounded-full mb-4 object-cover border-4 border-accent"
+          />
+          <p class="italic mb-4 text-center">
+            "La comparación de precios es muy fácil y rápida. Me encanta descubrir ofertas que antes no veía."
+          </p>
+          <h3 class="font-bold text-lg">Luis M.</h3>
+        </div>
+
+        <div class="bg-white bg-opacity-20 rounded-xl p-6 shadow-lg flex flex-col items-center">
+          <img
+            src="https://randomuser.me/api/portraits/women/45.jpg"
+            alt="Testimonio de Carla"
+            class="w-24 h-24 rounded-full mb-4 object-cover border-4 border-accent"
+          />
+          <p class="italic mb-4 text-center">
+            "SmartKart ha revolucionado la forma en que compro la despensa. ¡Muy recomendable!"
+          </p>
+          <h3 class="font-bold text-lg">Carla R.</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+
+</html>
