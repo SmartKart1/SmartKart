@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -93,79 +94,34 @@
 
 <body class="bg-white text-gray-800">
   <!-- Dialog -->
-  <dialog id="dialog" class="rounded-xl shadow-lg w-full max-w-md p-6 text-left">
-    <form method="dialog" class="space-y-4" onsubmit="handleSubmit(event)">
-      <h2 class="text-xl font-bold text-gray-800">¿Quieres saber más sobre SmartKart?</h2>
-      <input
-        type="text"
-        id="popup-name"
-        placeholder="Tu nombre"
-        class="w-full px-4 py-2 border border-gray-300 rounded-md"
-        required
-      />
-      <input
-        type="email"
-        id="popup-email"
-        placeholder="Tu correo electrónico"
-        class="w-full px-4 py-2 border border-gray-300 rounded-md"
-        required
-      />
-      <!-- Nueva pregunta: Código Postal -->
-      <input
-        type="text"
-        id="popup-postalcode"
-        placeholder="Código Postal"
-        class="w-full px-4 py-2 border border-gray-300 rounded-md"
-        pattern="\d*"
-        maxlength="10"
-        title="Ingresa un código postal válido"
-        required
-      />
+  <dialog id="dialog" class="rounded-xl shadow-lg w-full max-w-md p-6 text-left bg-white">
+  <form action="https://docs.google.com/forms/d/e/1FAIpQLSfL9Hd5ixdqKgzBKZ9f57pK41bCTgCW8aGki5eoYxDYulk9FQ/formResponse" method="POST" target="_blank" class="space-y-4">
+    <h2 class="text-xl font-bold text-gray-800 mb-4">¿Quieres saber más sobre SmartKart?</h2>
+    <label class="block text-sm font-medium text-gray-700">Nombre</label>
+    <input name="entry.1211431275" type="text" placeholder="Tu nombre" required class="w-full px-4 py-2 border border-gray-300 rounded-md" />
 
-      <!-- Nueva pregunta: ¿Qué te gustaría ahorrar más? -->
-      <div>
-        <p class="mb-2 font-semibold text-gray-700">
-          ¿Qué te gustaría ahorrar más con SmartKart?
-        </p>
-        <div class="flex space-x-4">
-          <div
-            tabindex="0"
-            role="button"
-            class="option-box"
-            onclick="selectOption(this)"
-            onkeypress="if(event.key==='Enter' || event.key===' ') selectOption(this)"
-          >
-            Tiempo
-          </div>
-          <div
-            tabindex="0"
-            role="button"
-            class="option-box"
-            onclick="selectOption(this)"
-            onkeypress="if(event.key==='Enter' || event.key===' ') selectOption(this)"
-          >
-            Dinero
-          </div>
-          <div
-            tabindex="0"
-            role="button"
-            class="option-box"
-            onclick="selectOption(this)"
-            onkeypress="if(event.key==='Enter' || event.key===' ') selectOption(this)"
-          >
-            Ambos
-          </div>
-        </div>
-      </div>
+    <label class="block text-sm font-medium text-gray-700">Correo electrónico</label>
+    <input name="entry.1547934077" type="email" placeholder="Tu correo electrónico" required class="w-full px-4 py-2 border border-gray-300 rounded-md" />
 
-      <div class="flex justify-end space-x-2 pt-2">
-        <button type="submit" class="bg-accent hover:bg-green-700 text-white px-4 py-2 rounded">Enviar</button>
-        <button type="button" onclick="document.getElementById('dialog').close()" class="text-gray-500 hover:text-gray-700 px-4 py-2">
-          Cerrar
-        </button>
-      </div>
-    </form>
-  </dialog>
+    
+    <label class="block text-sm font-medium text-gray-700">Código Postal</label>
+    <input name="entry.1072854904" type="text" placeholder="Tu código postal" required class="w-full px-4 py-2 border border-gray-300 rounded-md" />
+
+
+<label class="block text-sm font-medium text-gray-700">¿Qué te gustaría ahorrar más con SmartKart?</label>
+    <select name="entry.1815253949" required class="w-full px-4 py-2 border border-gray-300 rounded-md">
+      <option value="">Selecciona una opción</option>
+      <option value="Tiempo">Tiempo</option>
+      <option value="Dinero">Dinero</option>
+      <option value="Ambos">Ambos</option>
+    </select>
+
+    <div class="flex justify-end space-x-2 pt-2">
+      <button type="submit" class="bg-accent hover:bg-green-700 text-white px-4 py-2 rounded">Enviar</button>
+      <button type="button" onclick="document.getElementById('dialog').close()" class="text-gray-500 hover:text-gray-700 px-4 py-2">Cerrar</button>
+    </div>
+  </form>
+</dialog>
 
   <!-- Hero Section -->
   <section
