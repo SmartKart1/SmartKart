@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -95,7 +96,7 @@
 <body class="bg-white text-gray-800">
   <!-- Dialog -->
   <dialog id="dialog" class="rounded-xl shadow-lg w-full max-w-md p-6 text-left bg-white">
-  <form id="smartkart-form" class="space-y-4" onsubmit="submitForm(event)">
+  <form action="https://formspree.io/f/mblyarey" method="POST" class="space-y-4" onsubmit="return handleFormSubmit();">
     <h2 class="text-xl font-bold text-gray-800 mb-4">¿Quieres saber más sobre SmartKart?</h2>
 
     <label class="block text-sm font-medium text-gray-700">Nombre</label>
@@ -126,6 +127,21 @@
     <span class="block sm:inline">Hemos recibido tu información. Te contactaremos pronto.</span>
   </div>
 </dialog>
+
+<script>
+  function handleFormSubmit() {
+    const form = document.querySelector('form');
+    const success = document.getElementById('successMessage');
+    success.classList.remove('hidden');
+    setTimeout(() => {
+      success.classList.add('hidden');
+      document.getElementById('dialog').close();
+      form.reset();
+    }, 3000);
+    return true;
+  }
+</script>
+
 
 <script>
   async function submitForm(event) {
