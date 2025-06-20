@@ -319,33 +319,6 @@
     </div>
   </section>
 
-
-  async function handleFormSubmit(event) {
-    event.preventDefault();
-    const form = document.getElementById('smartkart-form');
-    const data = new FormData(form);
-
-    try {
-      await fetch("https://formspree.io/f/mblyarey", {
-        method: "POST",
-        body: data,
-        headers: { "Accept": "application/json" }
-      });
-
-      document.getElementById('successMessage').classList.remove('hidden');
-      form.reset();
-      setTimeout(() => {
-        document.getElementById('successMessage').classList.add('hidden');
-        document.getElementById('dialog').close();
-      }, 3000);
-    } catch (error) {
-      alert("Error al enviar tus datos. Intenta de nuevo.");
-    }
-
-    return false;
-  }
-</script>
-
 <script>
   async function handleFormSubmit(event) {
     event.preventDefault();
@@ -416,7 +389,5 @@
     document.getElementById('dialog').close();
   }
 </script>
-
 </body>
-
 </html>
